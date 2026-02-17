@@ -12,11 +12,11 @@ A simple Hangman game built with React. Guess the word one letter at a time befo
 - Win and loss states:
   - **Win:** all letters guessed
   - **Loss:** wrong guesses reach the maximum allowed
-    ![Game Screenshot](./assets/winStateUI.png)
+    ![Game Screenshot](./Hangman/assets/winStateUI.png)
 - Reset / “Go Again” button to start a new game
 - Hint button (toggles hint text)
 - Confetti on win
-  ![Game Screenshot](./assets/mainUI.png)
+  ![Game Screenshot](./Hangman/assets/mainUI.png)
 
 ## How to Play
 

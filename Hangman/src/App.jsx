@@ -8,15 +8,25 @@ import AttemptsCounter from "./components/AttemptsCounter";
 import ResetButton from "./components/ResetButton";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [word, setWord] = useState("northcoders");
+  const [wrongGuesses, setWrongGuesses] = useState(0);
+
+  function handleGuess(letter) {
+    if (guessedLetters.includes(letter)) return;
+    setGuessedLetters((prev) => [...prev, letter]);
+    if (!word.includes(letter)) {
+      setWrongGuesses((prev) => prev + 1);
+    }
+  }
 
   return (
     <>
       <Header />
-      <AlphabetButtons />
-      <GuessWord />
+      <AlphabetButtons onGuess={handleGuess} guessedLetters={guessedLetters} />
+      <GuessWord word={word} guessedLetters={guessedLetters} />
       <HangmanGraphic />
-      <AttemptsCounter />
+      <AttemptsCounter wrongGuesses={wrongGuesses} />
       <ResetButton />
     </>
   );

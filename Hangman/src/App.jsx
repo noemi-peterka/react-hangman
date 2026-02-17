@@ -22,21 +22,23 @@ function App() {
     "id",
     "method",
   ];
-  const random = Math.floor(Math.random() * words.length);
-  const randomWord = words[random];
+  function getRandomWord() {
+    return words[Math.floor(Math.random() * words.length)];
+  }
 
+  const [word, setWord] = useState(() => getRandomWord());
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [word, setWord] = useState(randomWord);
   const [wrongGuesses, setWrongGuesses] = useState(0);
   const [showHint, setShowHint] = useState(false);
   const text = showHint ? "Hint: Think like a developer" : "Need a hint?";
 
-  const maxWrong = word.length - 1;
+  const maxWrong = 6;
   const win = word.split("").every((char) => guessedLetters.includes(char));
   const loss = wrongGuesses >= maxWrong;
   const gameOver = win || loss;
 
   function handleGuess(letter) {
+    if (gameOver) return;
     if (guessedLetters.includes(letter)) return;
     setGuessedLetters((prev) => [...prev, letter]);
     if (!word.includes(letter)) {
@@ -45,9 +47,10 @@ function App() {
   }
 
   function reset() {
-    setWord(randomWord);
+    setWord(getRandomWord());
     setGuessedLetters([]);
     setWrongGuesses(0);
+    setShowHint(false);
   }
 
   function clickShowHint() {
@@ -57,12 +60,33 @@ function App() {
   return (
     <>
       <Header />
-      <AlphabetButtons onGuess={handleGuess} guessedLetters={guessedLetters} />
-      <GuessWord word={word} guessedLetters={guessedLetters} />
-      <HangmanGraphic wrongGuesses={wrongGuesses} />
-      <AttemptsCounter wrongGuesses={wrongGuesses} />
-      <button onClick={reset}>Reset</button>
-      <button onClick={clickShowHint}>{text}</button>
+      {win && (
+        <div>
+          <h2>Well done!</h2>
+          <button onClick={reset}>Go Again</button>
+        </div>
+      )}
+      {loss && (
+        <div>
+          <p>Oh no...</p>
+          <p>How embarrassing for you.</p>
+          <HangmanGraphic wrongGuesses={wrongGuesses} />
+          <button onClick={reset}>Try Again?</button>
+        </div>
+      )}
+      {!gameOver && (
+        <>
+          <AlphabetButtons
+            onGuess={handleGuess}
+            guessedLetters={guessedLetters}
+          />
+          <GuessWord word={word} guessedLetters={guessedLetters} />
+          <HangmanGraphic wrongGuesses={wrongGuesses} />
+          <AttemptsCounter wrongGuesses={wrongGuesses} />
+          <button onClick={reset}>Reset</button>
+          <button onClick={clickShowHint}>{text}</button>
+        </>
+      )}
     </>
   );
 }

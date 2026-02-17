@@ -4,7 +4,7 @@ function GuessWord({ word, guessedLetters }) {
     .map((char) => (guessedLetters.includes(char) ? char : "_"))
     .join(" ");
   return (
-    <div class="guess-word">
+    <div className="guess-word">
       <h2>{display}</h2>
     </div>
   );

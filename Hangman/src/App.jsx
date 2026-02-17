@@ -15,7 +15,12 @@ function App() {
     "function",
     "recursion",
     "sum",
-    "",
+    "variable",
+    "array",
+    "object",
+    "class",
+    "id",
+    "method",
   ];
   const random = Math.floor(Math.random() * words.length);
   const randomWord = words[random];
@@ -23,6 +28,13 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [word, setWord] = useState(randomWord);
   const [wrongGuesses, setWrongGuesses] = useState(0);
+  const [showHint, setShowHint] = useState(false);
+  const text = showHint ? "Hint: Think like a developer" : "Need a hint?";
+
+  const maxWrong = word.length - 1;
+  const win = word.split("").every((char) => guessedLetters.includes(char));
+  const loss = wrongGuesses >= maxWrong;
+  const gameOver = win || loss;
 
   function handleGuess(letter) {
     if (guessedLetters.includes(letter)) return;
@@ -38,6 +50,10 @@ function App() {
     setWrongGuesses(0);
   }
 
+  function clickShowHint() {
+    setShowHint((prev) => !prev);
+  }
+
   return (
     <>
       <Header />
@@ -45,8 +61,8 @@ function App() {
       <GuessWord word={word} guessedLetters={guessedLetters} />
       <HangmanGraphic wrongGuesses={wrongGuesses} />
       <AttemptsCounter wrongGuesses={wrongGuesses} />
-
       <button onClick={reset}>Reset</button>
+      <button onClick={clickShowHint}>{text}</button>
     </>
   );
 }

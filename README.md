@@ -16,6 +16,7 @@ A simple Hangman game built with React. Guess the word one letter at a time befo
 - Reset / “Go Again” button to start a new game
 - Hint button (toggles hint text)
 - Confetti on win
+
   ![Game Screenshot](./Hangman/assets/mainUI.png)
 
 ## How to Play

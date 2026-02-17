@@ -1,8 +1,7 @@
 function AttemptsCounter({ wrongGuesses }) {
-  let counter = wrongGuesses;
   return (
     <div>
-      <p>Attempts: {counter}</p>
+      <p>Attempts: {wrongGuesses}</p>
     </div>
   );
 }

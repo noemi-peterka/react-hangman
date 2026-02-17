@@ -1,9 +1,7 @@
-function HangmanGraphic(props) {
-  //pass the .length of amount of guesses
-  const imgUrl = 0;
+function HangmanGraphic({ wrongGuesses }) {
   return (
     <div>
-      <img src={`../assets/${imgUrl}.png`} alt="Hangman drawing" />
+      <img src={`../assets/${wrongGuesses}.png`} alt="Hangman drawing" />
     </div>
   );
 }

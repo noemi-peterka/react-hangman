@@ -5,11 +5,23 @@ import AlphabetButtons from "./components/AlphabetButtons";
 import GuessWord from "./components/GuessWord";
 import HangmanGraphic from "./components/HangmanGraphic";
 import AttemptsCounter from "./components/AttemptsCounter";
-import ResetButton from "./components/ResetButton";
 
 function App() {
+  const words = [
+    "coding",
+    "react",
+    "northcoders",
+    "javascript",
+    "function",
+    "recursion",
+    "sum",
+    "",
+  ];
+  const random = Math.floor(Math.random() * words.length);
+  const randomWord = words[random];
+
   const [guessedLetters, setGuessedLetters] = useState([]);
-  const [word, setWord] = useState("northcoders");
+  const [word, setWord] = useState(randomWord);
   const [wrongGuesses, setWrongGuesses] = useState(0);
 
   function handleGuess(letter) {
@@ -20,14 +32,21 @@ function App() {
     }
   }
 
+  function reset() {
+    setWord(randomWord);
+    setGuessedLetters([]);
+    setWrongGuesses(0);
+  }
+
   return (
     <>
       <Header />
       <AlphabetButtons onGuess={handleGuess} guessedLetters={guessedLetters} />
       <GuessWord word={word} guessedLetters={guessedLetters} />
-      <HangmanGraphic />
+      <HangmanGraphic wrongGuesses={wrongGuesses} />
       <AttemptsCounter wrongGuesses={wrongGuesses} />
-      <ResetButton />
+
+      <button onClick={reset}>Reset</button>
     </>
   );
 }

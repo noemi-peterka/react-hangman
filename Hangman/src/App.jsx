@@ -5,6 +5,8 @@ import AlphabetButtons from "./components/AlphabetButtons";
 import GuessWord from "./components/GuessWord";
 import HangmanGraphic from "./components/HangmanGraphic";
 import AttemptsCounter from "./components/AttemptsCounter";
+import { useEffect } from "react";
+import confetti from "canvas-confetti";
 
 function App() {
   const words = [
@@ -56,6 +58,12 @@ function App() {
   function clickShowHint() {
     setShowHint((prev) => !prev);
   }
+
+  useEffect(() => {
+    if (win) {
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+    }
+  }, [win]);
 
   return (
     <>
